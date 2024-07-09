@@ -16,7 +16,7 @@ public class ProductManagerTest {
     }
 
     @Test
-    void shouldAddProduct() {
+    public void shouldAddProduct() {
         Product product = new Product(1, "Pr1", 1000);
         manager.add(product);
         Product[] expected = new Product[]{product};
@@ -25,7 +25,7 @@ public class ProductManagerTest {
     }
 
     @Test
-    void shouldSearchByExistingText() {
+    public void shouldSearchByExistingText() {
         Product product1 = new Product(1, "Pr1", 1000);
         Product product2 = new Product(2, "Pr2", 2000);
         Product product3 = new Product(3, "Pr3", 3000);
@@ -33,12 +33,12 @@ public class ProductManagerTest {
         manager.add(product2);
         manager.add(product3);
         Product[] expected = new Product[]{product3};
-        Product[] actual = manager.searchBy("Pr3");
+       Product[] actual = manager.searchBy("Pr3");
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    void shouldSearchByNonExistingText() {
+    public void shouldSearchByNonExistingText() {
         Product product = new Product(1, "Pr1", 1000);
         Product product1 = new Product(2, "Pr2", 3000);
         manager.add(product);
@@ -50,16 +50,31 @@ public class ProductManagerTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void shouldSearchSomeResult() {
+        Product product = new Product(1, "Pr1", 1000);
+        Product product1 = new Product(2,"Pr2", 2000);
+        Product product2 = new Product(3,"Zv3", 3000);
+        manager.add(product);
+        manager.add(product1);
+        manager.add(product2);
+
+        Product[] expected = new Product[] {product, product1};
+        Product[] actual = manager.searchBy("Pr");
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
 
     @Test
-    void shouldMatchByName() {
+    public void shouldMatchByName() {
         Product product = new Product(1, "Pr1", 1000);
         Assertions.assertTrue(manager.matches(product, "Pr"));
     }
 
     @Test
-    void shouldNotMatchByName() {
+    public void shouldNotMatchByName() {
         Product product = new Product(1, "Pr1", 1000);
         Assertions.assertFalse(manager.matches(product, "No Product"));
     }
+
 }

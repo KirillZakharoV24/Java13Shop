@@ -11,9 +11,12 @@ public class ProductManager {
         repo.add(product);
     }
 
+   
+
     public Product[] searchBy(String text) {
+        Product[] products = repo.findAll();
         Product[] result = new Product[0];
-        for (Product product : repo.findAll()) {
+        for (Product product : products) {
             if (matches(product, text)) {
                 Product[] tmp = new Product[result.length + 1];
                 for (int i = 0; i < result.length; i++) {
