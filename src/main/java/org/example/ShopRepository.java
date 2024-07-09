@@ -1,5 +1,7 @@
 package org.example;
 
+import org.exceptions.NotFoundException;
+
 public class ShopRepository {
     private Product[] products = new Product[0];
 
@@ -14,6 +16,11 @@ public class ShopRepository {
 
 
     public void removeById(int id) {
+        Product product = findById(id);
+        if (product == null) {
+            throw new NotFoundException("Element with id:" + id + "not found");
+        }
+
         Product[] tmp = new Product[products.length - 1];
         int copyToIndex = 0;
         for (Product item : products) {
@@ -23,6 +30,7 @@ public class ShopRepository {
             }
         }
         products = tmp;
+
     }
 
     public Product[] findAll() {

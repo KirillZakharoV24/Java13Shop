@@ -1,4 +1,5 @@
 import org.example.*;
+import org.exceptions.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -107,6 +108,21 @@ public class ShopRepositoryTest {
         int actual = product.getPrice();
 
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testNotFoundException() {
+        Product product1 = new Product(21, "Something", 1234);
+        Product product2 = new Product(31, "Smth2", 4321);
+        Product product3 = new Product(41, "smth3", 5657);
+
+        repo.add(product1);
+        repo.add(product2);
+        repo.add(product3);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+           repo.removeById(51);
+        });
     }
 
 }
